@@ -1,0 +1,6 @@
+{
+  "source_root": "../../math-modeling-corpus",
+  "extraction_root": "../../math-modeling-corpus/_distillation",
+  "optional": true,
+  "purpose": "Copy to local-corpus.json and adjust paths for your own corpus. Relative paths are relative to this config file. Original files and extracted texts are not bundled."
+}

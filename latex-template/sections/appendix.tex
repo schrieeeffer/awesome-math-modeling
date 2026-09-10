@@ -1,0 +1,29 @@
+\section{支撑文件与复现入口}
+\slot{列出真实支撑文件、功能、输入输出、运行顺序、依赖版本，以及确实验证过的复现命令。}
+
+\section{AI 使用记录}
+\slot{按实际过程记录工具和版本、用途、关键交互、采纳修改与人工核验证据。本节是否需要及其位置以适用竞赛通知为准。}
+
+\section{排版示例：公式、图表和引用}
+\label{sec:example-typesetting}
+\textbf{本节仅演示排版，不是赛题模型或研究结果；成稿时整节删除。}
+公式环境的用法可查阅 \texttt{amsmath} 官方指南\cite{amsmath-guide}。
+以下用加权平均的数学定义演示公式及交叉引用：
+\begin{equation}
+  \bar{x}_{w}=\sum_{i=1}^{n}w_i x_i,
+  \qquad \sum_{i=1}^{n}w_i=1,\quad w_i\geq 0.
+  \label{eq:example-weighted-mean}
+\end{equation}
+式\eqref{eq:example-weighted-mean}中，$n$为正整数，$x_i$为实数，$w_i$为无量纲权重；$\bar{x}_{w}$与$x_i$具有相同单位。这里没有指定任何观测值或计算结果，亦不据此推荐某种赛题模型。
+
+图\ref{fig:example-placeholder}仅展示图题与引用的位置；真实图像应由当前题目的结果生成，并在正文解释对象、条件、坐标单位与主要发现。
+\begin{figure}[htbp]
+  \centering
+  \fbox{\begin{minipage}[c][24mm][c]{0.88\linewidth}
+    \centering\small
+    排版示例：此处放置由真实结果生成的图像\\
+    当前为占位框，不包含观测或模拟数据
+  \end{minipage}}
+  \caption{图像与图题位置示例（非研究结果）}
+  \label{fig:example-placeholder}
+\end{figure}

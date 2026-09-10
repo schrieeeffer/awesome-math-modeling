@@ -1,0 +1,36 @@
+# Machine-specific corpus locations and credentials
+/references/local-corpus.json
+.env
+.env.*
+!.env.example
+
+# Local build, validation, and editor output
+/_publish_work/
+**/build/
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# LaTeX compilation products
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+*.xdv
+*.nav
+*.snm
+*.vrb
+/latex-template/main.pdf
+/assets/latex/main.pdf

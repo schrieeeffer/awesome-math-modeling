@@ -1,0 +1,41 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{modeling}[2026/09/10 Portable mathematical modeling template]
+
+\RequirePackage{iftex}
+\RequireXeTeX
+\RequirePackage[margin=25mm]{geometry}
+\RequirePackage{amsmath,amssymb,bm}
+\RequirePackage{booktabs,tabularx,array,graphicx}
+\RequirePackage{caption,enumitem}
+\RequirePackage{gbt7714}
+\setcitestyle{numbers,square,comma}
+\RequirePackage[hidelinks]{hyperref}
+
+% 全部字体由 TeX 发行版提供，不依赖 Windows 专有字体或外置字体文件。
+\setmainfont{TeX Gyre Termes}
+\setsansfont{TeX Gyre Heros}
+\setmonofont{TeX Gyre Cursor}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0pt}
+\renewcommand{\baselinestretch}{1.38}
+\renewcommand{\arraystretch}{1.2}
+\ctexset{
+  section={format=\centering\heiti\bfseries\zihao{4},
+    beforeskip=1.4ex,afterskip=0.7ex},
+  subsection={format=\songti\bfseries\zihao{-4},
+    beforeskip=1.1ex,afterskip=0.5ex},
+  subsubsection={format=\songti\bfseries\zihao{-4},
+    beforeskip=0.8ex,afterskip=0.4ex}
+}
+\captionsetup{font=small,labelfont=bf,skip=6pt}
+\setlist{nosep,leftmargin=2em}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcommand{\slot}[1]{〔待填：#1〕}
+\pdfstringdefDisableCommands{\def\slot#1{待填：#1}}
+\hypersetup{pdfauthor={},pdftitle={数学建模论文工作模板},
+  pdfsubject={可编辑模板；所有研究结果均待填写}}
+\pagestyle{plain}
+\raggedbottom
+\clubpenalty=10000
+\widowpenalty=10000
+\endinput

@@ -1,0 +1,14 @@
+# Keep text consistent on Windows, Linux, and macOS.
+* text=auto eol=lf
+
+# Office documents and media must never undergo newline conversion.
+*.docx binary
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.zip binary
+
+# Native Windows command scripts use CRLF when checked out.
+*.bat text eol=crlf
+*.cmd text eol=crlf

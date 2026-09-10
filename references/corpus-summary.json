@@ -1,0 +1,72 @@
+{
+  "as_of": "2026-09-10",
+  "physical_files": 1504,
+  "physical_bytes": 2663413228,
+  "physical_unique_hashes": 1397,
+  "physical_duplicate_files": 107,
+  "pdf_physical_pages": 11409,
+  "physical_extensions": {
+    ".docx": 27,
+    ".mp4": 36,
+    ".pdf": 535,
+    ".zip": 11,
+    ".doc": 106,
+    ".ppt": 3,
+    ".rar": 53,
+    ".png": 2,
+    ".jpg": 499,
+    ".md": 1,
+    ".xlsx": 54,
+    ".txt": 34,
+    ".mdb": 1,
+    ".xls": 39,
+    ".asv": 1,
+    ".m": 70,
+    ".mat": 28,
+    ".bmp": 3,
+    ".rtf": 1
+  },
+  "physical_status": {
+    "text_extracted": 318,
+    "video_not_transcribed": 36,
+    "needs_ocr": 252,
+    "archive_listed": 64,
+    "legacy_text_extracted": 104,
+    "binary_indexed": 125,
+    "text_layer_suspect": 98,
+    "image_not_ocr": 504,
+    "legacy_conversion_failed": 2,
+    "raw_markup_extracted": 1
+  },
+  "archive_members_indexed": 4531,
+  "archive_status": {
+    "text_extracted": 807,
+    "archive_member_indexed": 3507,
+    "legacy_text_extracted": 155,
+    "nested_archive_listed": 48,
+    "text_layer_suspect": 3,
+    "needs_ocr": 3,
+    "large_csv_header_sampled": 1,
+    "legacy_conversion_failed": 1,
+    "nested_archive_duplicate": 6
+  },
+  "unique_legacy_documents_converted": 237,
+  "total_catalog_rows": 6035,
+  "review_depths": {
+    "training_text_reviewed": 21,
+    "inventory_or_extraction_only": 5962,
+    "template_structure_and_selected_pages_reviewed": 4,
+    "仅摘要视觉": 8,
+    "视觉选读": 12,
+    "原图视觉选读": 10,
+    "文本选读": 10,
+    "static_code_review": 8
+  },
+  "limitations": [
+    "Text extraction is not full semantic review.",
+    "Images and videos are not exhaustively OCRed/transcribed.",
+    "Binary datasets are indexed, not reanalyzed.",
+    "Award labels and current competition rules are not independently verified.",
+    "Nested archive duplicates reference the identical contents instead of duplicating every descendant."
+  ]
+}

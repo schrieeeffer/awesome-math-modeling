@@ -1,0 +1,7 @@
+# XeLaTeX -> BibTeX -> XeLaTeX (repeat as needed), with outputs in build/.
+$pdf_mode = 5;
+$xelatex = 'xelatex -interaction=nonstopmode -halt-on-error -file-line-error %O %S';
+$out_dir = 'build';
+$bibtex_use = 2;
+$max_repeat = 5;
+@default_files = ('main.tex');
