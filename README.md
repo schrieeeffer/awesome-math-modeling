@@ -1,28 +1,33 @@
-# Awesome Math Modeling
+# 数学建模与论文写作
 
-面向中文数学建模竞赛的 **AI Skill、论文写作指南与可编译 LaTeX 模板**。把赛题分析、模型选择、计算验证和论文表达连接起来，并从历年论文中提炼摘要、分问论证、公式组织、图表说明与局限写法。
+从赛题分析、实验验证到论文定稿的一套工作方法，适用于国赛、美赛及其他数学建模比赛。
 
-核心技能名为 `math-modeling-competition`。你可以在 Codex 中调用，也可以直接阅读指南、复制模板使用。
+你可以把它作为 `math-modeling-competition` 技能交给 AI 使用，也可以直接阅读指南、运行辅助脚本，或复制 LaTeX 工程写论文。提供一篇往年论文后，技能会分析它的结构、文风和版式，再结合本届题目与规则组织你的论文。
 
-## 内容与特色
+[快速开始](#快速开始) · [使用示例](#使用示例) · [文档导航](#文档导航) · [LaTeX 模板](latex-template/README.md)
 
-- **建模流程**：从各问交付物和约束出发，选择基线与模型，保留可复算结果，安排适合问题类型的验证。
-- **历年论文写法**：整理 32 个历史论文及讲评案例，提供来源 ID、实际选读页码、可借鉴结构及适用边界；见[写作风格](references/writing-style.md)、[论文结构类型](references/paper-archetypes.md)和[案例证据](references/case-evidence.md)。
-- **多格式资产**：独立的 [LaTeX 工程模板](latex-template/README.md)，以及 [Word 论文模板](assets/manuscript.docx)、[Markdown 骨架](assets/manuscript.md)、摘要、分问章节、结果台账、假设表和 AI 使用记录。
-- **可追溯检索**：用 Python 标准库检索来源目录，可按关键词、年份、扩展名或精确 ID 筛选；接入自己的抽取文本后可搜索正文与物理页码。
+## 可以用它做什么
 
-本仓库包含蒸馏后的指南、模板和来源元数据，**不包含原始论文、题目附件、数据集、视频和抽取全文**。资料清点覆盖 1,504 个原始文件、4,531 个压缩包成员；这些是索引数量，包含重复路径，不表示逐篇全文审读。32 个案例的阅读深度也不同，完整统计与限制见[覆盖说明](references/corpus-guide.md)。
+- 读懂赛题和附件，整理每问需要回答的问题、可用数据和约束。
+- 从简单基线出发选择模型，完成求解、对比实验和结果核验。
+- 学习往年论文的论证方式，形成适合本题的提纲、段落和图表。
+- 改进已有初稿，保留成熟方案，补足说明、引用和验证。
+- 整理论文、代码与结果文件，检查页数、图表和提交材料。
+
+开始完整任务时，技能会先读取已有文件，再补问缺少的参赛要求、参考论文和输出位置。需要填写封面或登记表时，再按规则确认队伍信息；匿名论文和实名材料分开处理。
 
 ## 快速开始
 
-### 在 Codex 中安装
+### 安装技能
 
-将仓库复制到 Codex 的个人技能目录，并把技能文件夹命名为 `math-modeling-competition`：
+将仓库放入 Codex 的个人技能目录，文件夹名使用 `math-modeling-competition`。
+
+Windows PowerShell：
 
 ```powershell
-# Windows PowerShell；已设置 CODEX_HOME 时使用该目录
 $skillRoot = if ($env:CODEX_HOME) { Join-Path $env:CODEX_HOME 'skills' } else { Join-Path $env:USERPROFILE '.codex/skills' }
 New-Item -ItemType Directory -Force -Path $skillRoot | Out-Null
+
 git clone https://github.com/schrieeeffer/awesome-math-modeling.git (Join-Path $skillRoot 'math-modeling-competition')
 ```
 
@@ -32,66 +37,108 @@ macOS / Linux：
 git clone https://github.com/schrieeeffer/awesome-math-modeling.git "${CODEX_HOME:-$HOME/.codex}/skills/math-modeling-competition"
 ```
 
-也可下载仓库 ZIP，将解压后的完整目录复制到上述位置。目标目录已存在时，先保留自己的修改，再合并更新。重新打开 Codex 后，在任务中提供赛题、数据或草稿并调用：
+也可以下载 ZIP，解压到同一位置。已有安装时，保留自己的修改后再合并更新。重新打开 Codex，在对话中输入 `$math-modeling-competition` 即可调用。其他支持 `SKILL.md` 的工具可按各自方式导入本目录。
+
+### 准备材料
+
+通常需要赛题、附件、当届要求，以及你已有的代码或论文。往年参考论文提供链接或本地路径都可以；一篇完整案例就能开始。暂时没有参考时，也可以先分析题目，再从已有资料中选择合适案例。
+
+个人信息由本届提交要求决定，也可以留给队员最后填写。
+
+## 使用示例
+
+### 从题目开始
 
 ```text
-使用 $math-modeling-competition 分析附件赛题，先列出每问交付物、变量、约束和可验证的基线方案。
+使用 $math-modeling-competition 分析附件赛题。
+先梳理每问的目标、数据、约束和基线方案，再完成求解与验证。
+题目和参赛要求在〔项目目录〕，输出保存到〔结果目录〕。
 ```
+
+### 参考往年论文写作
 
 ```text
-使用 $math-modeling-competition 改进这份论文摘要。参考历史论文的分问表达，保留已有数字，标出没有结果支持的判断。
+使用 $math-modeling-competition。
+参考〔论文链接或文件路径〕，分析它的章节结构、文风和排版。
+结合〔项目目录〕里的题目、数据和比赛要求，完成本题的原创论文。
+缺少材料时请集中询问，最终文件保存到〔提交目录〕。
 ```
 
-如果只需模板或写作指南，直接使用下述文件即可。其他支持 `SKILL.md` 的工具可按其技能导入方式加载本目录。
+### 改进已有论文
 
-### 编译 LaTeX 论文
+```text
+使用 $math-modeling-competition 审改这份论文。
+保留已确认的模型和结果，重点改善解释、图表和章节衔接。
+先检查现有实验能否支持结论，再决定是否补充计算。
+```
 
-复制整个 [`latex-template/`](latex-template/) 到你的赛题工作目录，编辑 `main.tex`、`sections/*.tex` 和 `references.bib`。安装包含 CTeX、Fandol、BibTeX 与 latexmk 的 TeX Live 或等效环境后，在模板目录运行：
+完整任务会沿着“读题 → 建模与验证 → 写作与排版 → 检查与交付”继续推进。你也可以只处理其中一问、一段摘要或几张图。
+
+## 文档导航
+
+| 想做什么 | 从这里开始 |
+| --- | --- |
+| 了解技能如何工作 | [技能入口](SKILL.md) |
+| 从往年案例提取结构、文风与版式 | [参考论文适配](references/reference-adaptation.md) |
+| 完成建模到提交的整个流程 | [终稿流程](references/one-pass-delivery.md) |
+| 拆解题目、选择模型和验证结果 | [建模流程](references/modeling-workflow.md) · [模型选择](references/model-selection.md) |
+| 写摘要、模型解释与结果分析 | [论文写作](references/writing-style.md) · [结构参考](references/paper-archetypes.md) |
+| 改进图表、引用和提交材料 | [终稿检查](references/submission-quality.md) · [论文审改](references/paper-review.md) |
+| 处理预测驱动的动态决策 | [动态决策](references/dynamic-decisions.md) · [微网案例复盘](references/case-lessons-microgrid.md) |
+| 查阅往年案例与来源 | [32个论文及讲评案例](references/case-evidence.md) · [资料索引](references/corpus-guide.md) |
+
+## 模板与辅助工具
+
+### LaTeX 工程
+
+[`latex-template/`](latex-template/) 提供可独立编译的中文工程。已有官方模板时可以直接使用官方文件；从案例重建样式时，也可以把这个工程作为起点。
+
+在模板目录运行：
 
 ```bash
 latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex
 ```
 
-默认编译链使用 **XeLaTeX 与 BibTeX**，由 latexmk 自动完成必要轮次，生成 `build/main.pdf`。依赖、手动编译步骤和各文件用途见[模板说明](latex-template/README.md)。
+结果位于 `build/main.pdf`。章节在 `sections/` 中编辑，项目样式在 `project-style.tex` 中调整，文献放入 `references.bib`。添加引用后，在 `main.tex` 开启文献开关。安装依赖、Overleaf 用法和编译说明见 [模板文档](latex-template/README.md)。
 
-这是可编辑的通用论文工程，页面设置不代表某届竞赛的官方要求。按题目增删章节，只写入实际计算结果和核验过的引用；填充后重新检查图表、公式、交叉引用和分页。`assets/latex/` 保留原有最小骨架；新论文建议从顶层 `latex-template/` 开始。
+[`assets/`](assets/README.md) 还提供 Markdown 论文骨架、摘要提示、结果台账、假设表、进度记录和参考论文画像。Word 文件保留为历史样式参考。
 
-### 检索资料索引
+### 提交检查
 
-Python 3.9 或更新版本，无第三方依赖。在仓库根目录运行：
+需要 Python 3.10 或更新版本；读取 PDF 时安装 `pypdf`。
+
+```bash
+python scripts/check_delivery.py --root ./submit --expect paper.pdf --expect support/result.xlsx
+python scripts/check_delivery.py --root ./submit --pdf paper.pdf --aux ./build/main.aux --body-limit 30
+```
+
+第一条检查所列文件是否齐全。第二条读取模板的物理页标记并计算正文页数；这里的 `30` 请换成本届页限，`.aux` 使用对应 PDF 的最新编译文件，路径相对于运行命令的目录。也可以通过 `--body-first` 和 `--body-last` 指定已确认的物理页范围。
+
+脚本还会列出疑似占位和过程文件，供逐项检查。数学结果和实际版面仍需结合原始输出、PDF 页面核对。完整参数见 `python scripts/check_delivery.py --help`。
+
+### 资料检索
+
+索引检索使用 Python 3.9 或更新版本，仅依赖标准库：
 
 ```bash
 python scripts/search_corpus.py "种植" --year 2024 --ext pdf --limit 8
 python scripts/search_corpus.py --id S4190f2ed8e7b
 ```
 
-这些命令只搜索随仓库提供的路径与元数据，无需本机配置或原资料。若拥有对应的抽取正文目录（内含 `text/来源ID.txt`），可显式指定根目录：
+拥有抽取全文时，可以指定文本目录：
 
 ```bash
 python scripts/search_corpus.py "供应商" --content --text-root "../my-corpus/_distillation" --limit 6
 ```
 
-也可复制 [`references/local-corpus.example.json`](references/local-corpus.example.json) 为 `references/local-corpus.json`，修改路径，或通过 `--config` 指定自己的 JSON 文件。配置中的相对路径按**配置文件所在目录**解释；`--text-root` 优先于配置。`local-corpus.json` 是被 Git 忽略的本机文件，不应提交个人资料路径。详见[语料检索说明](references/corpus-guide.md#定向检索原件)。
+本机路径配置见 [资料索引说明](references/corpus-guide.md#定向检索原件)。
 
-## 目录结构
+## 资料来源
 
-```text
-.
-├── SKILL.md                    技能入口、任务路由与核心约束
-├── agents/openai.yaml          Codex 展示与调用元数据
-├── latex-template/             可独立复制编译的 LaTeX 工程
-│   ├── main.tex
-│   ├── sections/
-│   └── references.bib
-├── assets/                     Word、Markdown、CSV 与最小 LaTeX 骨架
-├── references/                 建模、写作、案例、审查与来源索引
-└── scripts/search_corpus.py     路径检索与可选本地全文检索
-```
+仓库收录的是整理后的指南、模板和来源索引，原始论文、题目附件及数据由使用者自行提供。索引包含1,504个原始文件记录和4,531个压缩包成员，其中有重复路径；32个案例附有实际选读范围，详见[覆盖说明](references/corpus-guide.md)。
 
-## 使用边界与贡献
+历史案例用于学习写法和比较思路，当前比赛的格式、页数和披露安排以当届要求为准。论文中的数值来自当前计算，引用回到原始来源核验。
 
-历史材料中的“优秀”“一等奖”“官方”等文件名标签未独立核验。案例用于学习论证方法，不保证模型正确、获奖结果或当前比赛合规；页面限制、匿名要求、AI 使用与提交格式须依据适用赛事的当届通知。
+## 参与完善
 
-写作指南强调用真实结果支撑摘要与结论、解释假设影响、核对引用和复现过程。不要复制往年长段正文、沿用示例数值，或把尚未验证的结果写成已完成。
-
-欢迎通过 Issue 或 Pull Request 补充可复现的模板修复、写作案例分析与模型验证经验。新增案例请说明来源、选读范围和结论边界；不要提交无再分发授权的论文全文、资料包、数据、字体或个人本机配置。
+欢迎通过 [Issue](https://github.com/schrieeeffer/awesome-math-modeling/issues) 或 Pull Request 分享使用反馈、模板修复和案例分析。报告问题时附上复现步骤、运行环境和必要的脱敏示例；新增案例请注明来源及阅读范围。

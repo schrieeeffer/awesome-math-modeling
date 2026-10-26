@@ -1,4 +1,4 @@
 interface:
-  display_name: "数学建模与优秀论文写作"
-  short_description: "从历年论文提炼建模论证、摘要和图表风格，提供模板与证据驱动审改"
-  default_prompt: "使用 $math-modeling-competition，结合我的赛题、数据和已有结果完成建模与论文写作，参考相关往年案例并核对结果依据。"
+  display_name: "通用数学建模与案例仿写"
+  short_description: "主动补齐参赛材料，从往年案例提取结构、文风与版式，适配本题完成建模和论文"
+  default_prompt: "使用 $math-modeling-competition，先读取已给材料；缺少时主动询问参赛要求目录、往年论文链接或文件地址、输出位置及规则所需的队伍信息。从参考案例提取结构、文风和版式，结合本题与本届规则原创写作，不固定套用某场比赛模板，随后自主完成核验与交付。"

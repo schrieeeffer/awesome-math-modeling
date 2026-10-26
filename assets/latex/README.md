@@ -1,18 +1,37 @@
-# 可移植论文骨架
+# 单文件 LaTeX 论文骨架
 
-该模板从本地 Word 与 LaTeX 资料提炼结构，不依赖其中定制的 `cumcmthesis.cls`、大字体文件、演示图片和示例代码。它不是官方赛题或提交格式。
+适合从一个 `main.tex` 开始写作的项目。需要分章编辑、自动编译或 Overleaf 使用说明时，可以选择 [完整 LaTeX 工程](../../latex-template/README.md)。
 
-在已安装 CTeX、Fandol 字体与常见宏包的 TeX Live 中编译：
+## 编译与填写
 
-```text
+复制整个目录到项目中，在带有 CTeX、Fandol、TeX Gyre、zref 及常见宏包的 TeX Live 环境执行：
+
+```sh
 xelatex -interaction=nonstopmode -halt-on-error main.tex
 xelatex -interaction=nonstopmode -halt-on-error main.tex
 ```
 
-默认 A4、四边 25 mm、正文小四、两字符缩进，来自本地写作模板的共同页面特征。字体使用 TeX Live 提供的 Fandol 宋/黑体以减少机器依赖；英文字体优先 Times New Roman，不存在时用 TeX Gyre Termes。章节数量、摘要和页码安排均为可编辑选择。提交前按适用官方通知调整。
+生成文件为 `main.pdf`。默认使用 A4、25 mm 页边距、小四宋体正文、黑体标题和两字符缩进，摘要关键词加粗。按当前要求及参考论文调整这些设置和章节顺序。
 
-先复制整个 `latex` 目录到赛题工作目录，再编辑。复制模型章节时同时修改所有标签及其引用，采用每问唯一的名称，如 `tab:q1-results`、`tab:q2-results`、`eq:q1-model`，避免重复 `\label`。保留中文的 `〔待填：…〕` 或 `\slot{…}` 意味着仍是草稿。模板没有真实研究结果，不要通过删除占位标记假装已完成研究。数字需能回溯项目的 `result-ledger.csv`。
+`\slot{...}` 显示为 `〔待填：…〕`。填入本题的推导、结果和验证，数字来源记录在项目结果台账中。复制模型章节时，为公式、表格和图片使用不同的标签前缀，例如 `tab:q1-results`、`tab:q2-results`，并同步修改引用。
 
-参考文献库初始为空。只有核验且在正文实际引用的来源才写入 `references.bib`，并取消 `main.tex` 底部 BibTeX 命令的注释，同时删除手写的 `\section*{参考文献}` 和临时占位段，避免自动文献表生成重复标题。按源中说明启用 `gbt7714-numerical` 格式时，还需安装该样式。不要使用 `\nocite{*}` 填满文献列表。
+## 启用文献
 
-本次验证环境为 Windows + TeX Live 2025；只证明空骨架可编译、页面可读。填入真实内容后必须重新编译并逐页检查溢出、表格、图注、公式和交叉引用。原 `latex.zip` 的完整文件保留在项目资料中，未改动。
+在 `references.bib` 中加入已核验的文献，并在正文写入 `\cite{文献键}`。删除文末手写的 `\section*{参考文献}` 及占位段落，然后取消以下两行的注释：
+
+```tex
+\bibliographystyle{gbt7714-numerical}
+\bibliography{references}
+```
+
+该样式需要安装 `gbt7714`。随后依次运行 XeLaTeX、`bibtex main`、两次 XeLaTeX，由 BibTeX 生成文献表。
+
+## 声明、附录与页数
+
+按实际使用情况和本届要求填写 AI 简短声明；不需要该节时设为 `\includeaistatementfalse`。详情与支撑材料的位置也按当前规则安排。
+
+正文结束后另页进入附录，标题显示“附录 A …”。主要结论和要求的汇总表放在正文，结果明细和程序按规则安排；采用选录时注明范围及完整文件位置。
+
+编译生成的 `.aux` 包含 `skill:body-start`、`skill:body-end`、`skill:appendix-start`。它们记录物理页，正文计数包含末尾浮动图表。不同比赛的计页范围可能不同，调整标记后核对实际 PDF。检查工具和标记解释见 [完整工程说明](../../latex-template/README.md#正文附录与页数)。
+
+定稿后重新编译，检查缺字、图表换页、公式和交叉引用，并根据当前支撑目录更新附录清单。

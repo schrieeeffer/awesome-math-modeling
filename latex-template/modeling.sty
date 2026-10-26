@@ -1,12 +1,14 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{modeling}[2026/09/10 Portable mathematical modeling template]
+% 可编译的中文默认值；当前参考画像与规则通过project-style.tex覆盖。
+\ProvidesPackage{modeling}[2026/10/23 Portable mathematical modeling template]
 
 \RequirePackage{iftex}
 \RequireXeTeX
 \RequirePackage[margin=25mm]{geometry}
 \RequirePackage{amsmath,amssymb,bm}
 \RequirePackage{booktabs,tabularx,array,graphicx}
-\RequirePackage{caption,enumitem}
+\RequirePackage{caption,enumitem,indentfirst}
+\RequirePackage{zref-user,zref-abspage}
 \RequirePackage{gbt7714}
 \setcitestyle{numbers,square,comma}
 \RequirePackage[hidelinks]{hyperref}
@@ -22,9 +24,9 @@
 \ctexset{
   section={format=\centering\heiti\bfseries\zihao{4},
     beforeskip=1.4ex,afterskip=0.7ex},
-  subsection={format=\songti\bfseries\zihao{-4},
+  subsection={format=\heiti\bfseries\zihao{-4},
     beforeskip=1.1ex,afterskip=0.5ex},
-  subsubsection={format=\songti\bfseries\zihao{-4},
+  subsubsection={format=\heiti\bfseries\zihao{-4},
     beforeskip=0.8ex,afterskip=0.4ex}
 }
 \captionsetup{font=small,labelfont=bf,skip=6pt}
@@ -38,4 +40,16 @@
 \raggedbottom
 \clubpenalty=10000
 \widowpenalty=10000
+
+% 物理页标记用于编译后核对，不在页面上印出内部标签。
+% 页首标记随所在页写入；正文末先清空浮动，再记录最后已输出的物理页。
+\newcommand{\skillmarkpage}[1]{\phantomsection\label{#1}\zlabel{#1}}
+\makeatletter
+\newcommand{\skillendbody}{%
+  \clearpage
+  \immediate\write\@auxout{\string\newlabel{skill:body-end}{{}{\number\ReadonlyShipoutCounter}{}{}{}}}%
+  \immediate\write\@auxout{\string\zref@newlabel{skill:body-end}{\string\abspage{\number\ReadonlyShipoutCounter}}}%
+}
+\makeatother
+
 \endinput

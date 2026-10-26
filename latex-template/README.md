@@ -1,20 +1,22 @@
-# 数学建模 LaTeX 标准工作模板
+# LaTeX 论文工程
 
-复制本目录即可编译；默认已启用 `.tex` 分章、`.bib` 文献和自动交叉引用，无需手工取消注释。本模板延续仓库提炼的“分问、依据、模型、求解、答案、验证”写作结构。这里的“标准”指完整可复用的工程结构；页面、字号和附录安排仍须按适用竞赛通知调整。
+一个可独立编译的中文论文起点，包含分章源文件、图表样式、BibTeX 引用和正文页数标记。复制到项目目录后，按本届要求和参考论文调整结构与样式。已有适用的官方模板时，可直接在官方工程中写作。
 
-## 一条命令编译
+## 编译
 
-建议安装含中文支持的完整 TeX Live 或 MiKTeX。必需组件包括 XeLaTeX、BibTeX、latexmk、CTeX、Fandol、TeX Gyre、gbt7714，以及常见数学与表格宏包；MiKTeX 的 latexmk 还需要可用的 Perl。
+本地建议使用带中文支持的 TeX Live 或 MiKTeX。主要依赖为 XeLaTeX、BibTeX、latexmk、CTeX、Fandol、TeX Gyre、gbt7714、zref 及常见数学和表格宏包；MiKTeX 运行 latexmk 还需要 Perl。
 
-进入本目录后运行：
+在本目录执行：
 
 ```sh
 latexmk
 ```
 
-`latexmkrc` 会自动执行 XeLaTeX、BibTeX 和必要的重复编译，输出 **`build/main.pdf`**。也可以显式执行 `latexmk -xelatex main.tex`。目录和文件名大小写应保持不变。
+配置文件 `latexmkrc` 会调用 XeLaTeX，将结果输出到 `build/main.pdf`。也可以使用 `latexmk -xelatex main.tex`。
 
-没有 latexmk 时，在本目录依次运行以下命令；此方式输出 `main.pdf`：
+初始引用库为空。在 `references.bib` 中添加文献、正文中加入 `\cite{文献键}`，再将 `main.tex` 中的 `\usebibliographyfalse` 改为 `\usebibliographytrue`，latexmk 就会自动运行 BibTeX。
+
+没有 latexmk 时，空模板运行两次 XeLaTeX 即可；启用文献后依次执行以下命令，输出为 `main.pdf`：
 
 ```sh
 xelatex -interaction=nonstopmode -halt-on-error main.tex
@@ -23,51 +25,94 @@ xelatex -interaction=nonstopmode -halt-on-error main.tex
 xelatex -interaction=nonstopmode -halt-on-error main.tex
 ```
 
-在线编辑器中将本目录内容作为独立项目上传，主文档选择 `main.tex`，编译器选择 **XeLaTeX**。参考文献使用 **BibTeX**，不使用 Biber。
+## 在哪里修改
 
-## 文件与编辑位置
-
-| 文件 | 用途 |
+| 文件 | 编辑内容 |
 | --- | --- |
-| `main.tex` | 题目、章节顺序、文献表入口 |
-| `modeling.sty` | A4、25 mm 页边距、小四正文、字体、标题与图表样式 |
-| `sections/abstract.tex` | 先从已核验结果取数，再按问题填写摘要 |
-| `sections/problem-analysis.tex` | 题意、交付物、方法选择与分问依赖 |
-| `sections/assumptions-symbols.tex` | 有依据的假设与带单位的符号表 |
-| `sections/model-q1.tex` | 一问的依据、推导、实现、结果和验证 |
-| `sections/evaluation-conclusion.tex` | 有证据的评价、局限、改进和逐问结论 |
-| `sections/appendix.tex` | 复现入口、AI 记录与可删除的排版示例 |
-| `references.bib` | 正文和附录实际引用的文献 |
-| `latexmkrc` | 编译链与输出目录 |
+| `main.tex` | 题目、章节顺序、声明与文献开关、正文和附录边界 |
+| `project-style.tex` | 当前项目的字体、间距、页边距、标题和题注设置 |
+| `modeling.sty` | 模板默认样式与公共命令 |
+| `sections/abstract.tex` | 摘要及关键词 |
+| `sections/problem-analysis.tex` | 题意、方法选择与各问之间的联系 |
+| `sections/assumptions-symbols.tex` | 假设、符号和单位 |
+| `sections/model-q1.tex` | 一问的模型、求解、结果与验证 |
+| `sections/evaluation-conclusion.tex` | 模型评价、局限和结论 |
+| `sections/ai-statement.tex` | 按实际使用情况填写的简短声明 |
+| `sections/appendix.tex` | 结果明细、支撑文件清单和程序 |
+| `references.bib` | 实际查阅并在论文中引用的文献 |
+| `examples/` | 单独编译的排版演示 |
 
-使用 TeX 发行版自带的 Fandol 和 TeX Gyre 字体，不需要复制商业字体或旧模板的类文件。摘要后另起一页，正文自然分页；这些是可修改的工作默认值，并非已核验的官方规则。
+模板中的 `\slot{...}` 会显示为 `〔待填：…〕`，用来标记尚未完成的内容。写作时先填模型、结果和验证，再从确定的结论整理摘要。
 
-## 分问、图表和文献
+增加问题二时，复制 `sections/model-q1.tex` 为 `sections/model-q2.tex`，将其中的 `q1` 标签及引用统一改为 `q2`，然后在 `main.tex` 中加入：
 
-增加问题二时，复制 `sections/model-q1.tex` 为 `sections/model-q2.tex`，修改标题，将文件中 **全部 `q1` 标签和引用改为 `q2`**，并在 `main.tex` 添加 `\input{sections/model-q2}`。公式、图、表、章节标签都必须唯一；正文使用 `\eqref{eq:q2-model}`、`\ref{tab:q2-results}` 等自动引用。
+```tex
+\input{sections/model-q2}
+```
 
-真实图像可以放入新建的 `figures/` 目录，以如下内容替换附录中的占位示例。路径是相对于 `main.tex` 的，首次使用前须确保文件存在：
+章节也可以按任务或主题重新组织。需要英文 Summary Sheet、信函或不同文档类时，直接调整 `main.tex` 和相应章节。
+
+## 调整样式
+
+默认使用 A4 纸、25 mm 页边距、小四正文、黑体标题、宋体正文；摘要首段缩进两个字，关键词加粗。中文字体来自 TeX 发行版的 Fandol，英文使用 TeX Gyre，便于本地与在线编译。
+
+`project-style.tex` 在默认样式之后加载，适合集中存放本项目的覆盖设置。样式依据可记录在 [参考论文画像](../assets/reference-profile.yaml) 中；具体提取方法见 [参考论文适配](../references/reference-adaptation.md)。
+
+这些默认值用于开始写作，正式格式由当前比赛要求决定。
+
+## 插入图表和文献
+
+在工程内新建 `figures/`，放入由实际结果绘制的图。例如：
 
 ```tex
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.8\linewidth]{figures/q1-result.pdf}
-  \caption{填写真实对象、条件与单位}
+  \caption{填写图中对象、条件与单位}
   \label{fig:q1-result}
 \end{figure}
 ```
 
-在 `references.bib` 添加核验过的条目，并在相关句子后写 `\cite{文献键}`。默认采用 [gbt7714 的顺序编码 BibTeX 样式](https://ctan.org/pkg/gbt7714)，文献表自动生成一次，不要再手写“参考文献”标题或使用 `\nocite{*}` 填满清单。
+图片路径相对于 `main.tex`。正文用 `\ref{fig:q1-result}` 引用图片，用 `\eqref{eq:q1-model}` 引用公式；各标签保持唯一。
 
-附录默认引用一条真实的 [amsmath 官方用户指南](https://www.latex-project.org/help/documentation/amsldoc.pdf)，仅演示引用链和公式排版。元数据按该 PDF 首页的版本 2.1、2020-02-18 修订信息核验，访问日期为 2026-09-10。该条不是赛题文献；删除“排版示例”整节时同时删除示例条目，并加入实际查阅、实际引用的文献。若当前草稿确实没有引用，可暂时注释 `main.tex` 的两条 bibliography 命令，避免空文献表警告。
+文献条目从期刊、会议或出版社的原始页面核验后写入 `references.bib`，在对应论述处引用。默认采用 [gbt7714 顺序编码样式](https://ctan.org/pkg/gbt7714)，启用后自动生成参考文献标题和列表。
 
-## 成稿前检查
+[`examples/`](examples/README.md) 中另有公式与引用演示，主论文不加载该目录，提交源件时可将它留在工作区。
 
-- 替换全部 `\slot{...}` / `〔待填：…〕`，删除填写说明、空表和“排版示例”整节。
-- 摘要、正文、图表与结果台账使用同一组真实数字；未执行的计算、验证和人工核验保持未完成状态。
-- 按适用要求调整匿名信息、页数、摘要、参考文献和 AI 披露安排。
-- 重新编译并逐页查看 PDF，检查缺字、图表位置、公式与文献引用、重复标签和溢出。模板可编译不代表填入内容后无需检查。
+## 正文、附录与页数
 
-写作细则见仓库的 [优秀论文风格指南](../references/writing-style.md) 和 [模板提炼依据](../references/template-guide.md)。本目录不依赖本地资料库，可单独复制使用。
+模板将摘要单独分页，正文包含模型章节、启用的 AI 声明和参考文献，随后另页进入附录。声明是否保留可通过 `\includeaistatementtrue` 或 `\includeaistatementfalse` 设置，内容按真实用途和本届要求填写。
 
-验证记录：2026-09-10，在 Windows + TeX Live 2025 中从独立复制目录运行 `latexmk`，自动完成 XeLaTeX、BibTeX 和后续重编译，生成 4 页 PDF。最终日志无未定义文献、未定义交叉引用、重复标签、缺字、Overfull 或 Underfull 提示；全部页面已渲染检查。页数仅反映当前空模板，不是成稿限制。
+`.aux` 文件提供以下物理页标记；使用 latexmk 时文件位于 `build/main.aux`。
+
+| 标记 | 含义 |
+| --- | --- |
+| `skill:body-start` | 正文第一物理页 |
+| `skill:body-end` | 正文及其浮动图表的最后物理页 |
+| `skill:appendix-start` | 附录第一物理页 |
+
+页数为末页减首页加 1。标记使用 `\zref@newlabel` 中的 `\abspage`，因此不受页脚重新编号影响。`\skillendbody` 会先排完正文浮动图表，再记录末页。计页范围随比赛规则调整，最终核对实际 PDF。
+
+从仓库根目录运行检查示例：
+
+```sh
+python scripts/check_delivery.py --root latex-template/build --pdf main.pdf --aux latex-template/build/main.aux --body-limit 30
+```
+
+这里的 `30` 换成本届页限；使用与 PDF 同次编译的 `.aux`，其相对路径从运行命令的目录计算。脚本需要 Python 3.10 或更新版本，读取 PDF 需要 `pypdf`。
+
+## 上传到 Overleaf
+
+将本目录的工程文件上传为一个项目，主文档选择 `main.tex`，编译器选择 **XeLaTeX**。参考文献采用 BibTeX。图片、章节和文献文件一并上传，并保留路径与大小写。
+
+在线源件和本地 PDF 使用同一份最终内容。编译后检查中文字体、公式、表格换页、引用及正文页数。
+
+## 定稿检查
+
+- 将待填内容替换为实际论证与结果，清理空表和填写说明。
+- 摘要、正文和图表使用一致的数值、单位和比较基准。
+- 在正文呈现主要答案与要求的汇总表，明细和程序按规则放入附录及支撑材料。
+- 根据当前支撑目录更新附录清单，核对匿名信息与 AI 使用说明。
+- 重新编译并查看各页，处理缺字、重复标签、未定义引用和内容溢出。
+
+写作可参考 [论文写作指南](../references/writing-style.md)，模板来源与历史检查记录见 [模板指南](../references/template-guide.md)。

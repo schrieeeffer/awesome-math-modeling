@@ -1,0 +1,51 @@
+# 当前项目的参考画像；复制到项目工作目录后填写，不属于固定模板或提交材料。
+# null = 尚未确认；格式测量须记录依据，不能根据截图猜精确字号。
+competition:
+  name: null
+  year: null
+  rules_source: null
+  rules_directory: null
+  problem_and_data: null
+  deliverable_language: null
+  output_format: null
+  output_directory: null
+reference:
+  source: null
+  primary_reference: null
+  access_status: null
+  inspected_pages_or_sections: []
+  limitations: []
+structure:
+  abstract_or_summary: null
+  section_sequence: []
+  question_to_section_mapping: []
+  special_deliverables: []
+  relative_space_allocation: null
+voice:
+  audience: null
+  language: null
+  terminology_density: null
+  title_patterns: []
+  paragraph_moves: []
+  result_and_limitation_style: null
+layout:
+  page_and_columns: null
+  body_font_and_size: null
+  headings: null
+  spacing_and_indent: null
+  figure_and_table_system: null
+  captions_and_numbering: null
+  citations_and_headers: null
+observations: []  # 每项: feature, observed_value, source_locator, confidence
+adaptation: []  # 每项: feature, adopt/modify/omit, target_rule, reason
+identity_handling:
+  requirements_checked: false
+  required_fields: []  # 只列字段名；真实身份单独放授权的本地实名材料
+  user_will_fill: null
+  anonymous_artifacts: []
+  named_artifacts: []
+validation:
+  sample_paragraph_review: null
+  representative_page_review: null
+  page_count_scope: null
+  remaining_questions: []

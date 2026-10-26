@@ -1,20 +1,22 @@
+% 无适用参考时的中文起点；当前官方要求与用户案例决定结构、语言和样式。
 % !TeX program = xelatex
 % 本地资料蒸馏的工作模板；不是已核实的官方竞赛格式。
 % 所有数字须追溯到 result-ledger.csv；按真实题数增删章节。
 \documentclass[UTF8,a4paper,zihao=-4,fontset=fandol]{ctexart}
 \usepackage[margin=25mm]{geometry}
 \usepackage{amsmath,amssymb,bm,booktabs,tabularx,graphicx}
-\usepackage{caption,enumitem}
+\usepackage{caption,enumitem,indentfirst}
+\usepackage{zref-user,zref-abspage}
 \usepackage[hidelinks]{hyperref}
-\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{\setmainfont{TeX Gyre Termes}}
+\setmainfont{TeX Gyre Termes}
 \setlength{\parindent}{2em}
 \setlength{\parskip}{0pt}
 \renewcommand{\baselinestretch}{1.38}
 \renewcommand{\arraystretch}{1.2}
 \ctexset{
-  section={format=\centering\songti\bfseries\zihao{4},beforeskip=1.2ex,afterskip=0.6ex},
-  subsection={format=\songti\bfseries\zihao{-4},beforeskip=1ex,afterskip=0.4ex},
-  subsubsection={format=\songti\bfseries\zihao{-4},beforeskip=0.8ex,afterskip=0.4ex}
+  section={format=\centering\heiti\bfseries\zihao{4},beforeskip=1.2ex,afterskip=0.6ex},
+  subsection={format=\heiti\bfseries\zihao{-4},beforeskip=1ex,afterskip=0.4ex},
+  subsubsection={format=\heiti\bfseries\zihao{-4},beforeskip=0.8ex,afterskip=0.4ex}
 }
 \captionsetup{font=small,labelfont=bf}
 \setlist{nosep,leftmargin=2em}
@@ -26,24 +28,41 @@
 \clubpenalty=10000
 \widowpenalty=10000
 
+
+% 物理页标记用于编译后核对，不在页面上印出内部标签。
+% 页首标记随所在页写入；正文末先清空浮动，再记录最后已输出的物理页。
+\newcommand{\skillmarkpage}[1]{\phantomsection\label{#1}\zlabel{#1}}
+\makeatletter
+\newcommand{\skillendbody}{%
+  \clearpage
+  \immediate\write\@auxout{\string\newlabel{skill:body-end}{{}{\number\ReadonlyShipoutCounter}{}{}{}}}%
+  \immediate\write\@auxout{\string\zref@newlabel{skill:body-end}{\string\abspage{\number\ReadonlyShipoutCounter}}}%
+}
+\makeatother
+
+% 适用规则要求正文声明时启用；实际用途未确认则保留占位。
+\newif\ifincludeaistatement
+\includeaistatementtrue
+
 \begin{document}
 \begin{center}
-{\songti\bfseries\fontsize{16pt}{20pt}\selectfont \slot{研究对象与核心问题}}\par
+{\heiti\bfseries\fontsize{16pt}{20pt}\selectfont \slot{研究对象与核心问题}}\par
 \vspace{1em}
 {\heiti\bfseries\zihao{4} 摘要}
 \end{center}
 
-\slot{用一至两句界定研究对象、任务与关键约束。}
+\indent\slot{用一至两句界定研究对象、任务与关键约束。}
 
 \textbf{针对问题\slot{题号}，}\slot{根据什么数据、抓住什么关系、建立什么模型、采用什么求解方法，得到什么答案。填写单位、范围及真实验证结果；草稿中注明结果台账 ID。}
 
 % 按实际问题数复制上一段；不要保留不存在的题号。
 \slot{总结最有证据支持的发现和适用边界。没有执行的检验不能写成已完成。}
 
-\noindent\textbf{关键词：}\slot{研究对象}；\slot{核心模型}；\slot{求解方法}
+\noindent\textbf{关键词：}\textbf{\slot{研究对象}}；\textbf{\slot{核心模型}}；\textbf{\slot{求解方法}}
 
 % 摘要另页沿用本地模板习惯，可按适用竞赛规则修改。
 \clearpage
+\skillmarkpage{skill:body-start}
 \section{问题重述}
 \slot{题目提供的对象、输入、时空范围和关键约束；区分事实与假设。}
 \subsection{问题与交付物}
@@ -90,11 +109,11 @@
 \caption{本问核心结果}
 \label{tab:q1-results}
 \small
-\begin{tabularx}{\linewidth}{YYYY}
+\begin{tabularx}{\linewidth}{lYY}
 \toprule
-输出 & 结果及单位 & 条件与解释 & 证据 ID \\
+输出 & 结果及单位 & 条件与解释 \\
 \midrule
-\slot{输出项} & \slot{真实结果} & \slot{条件与题意} & \slot{R-ID} \\
+\slot{输出项} & \slot{真实结果} & \slot{条件与题意} \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -115,6 +134,11 @@
 \section{结论}
 \slot{逐问回收答案及适用条件，不引入正文没有的新数字或发现。}
 
+\ifincludeaistatement
+\section*{AI 工具使用声明}
+\slot{按实际过程和适用规则简述真实用途，并指向支撑材料中的详情；未确认用途不得预填，未使用不得断言使用。}
+\fi
+
 \section*{参考文献}
 \slot{仅列实际查阅、核验并在正文引用的来源。}
 % 启用 BibTeX 时同时移除上方手写的 \section*{参考文献} 及占位段落，
@@ -123,12 +147,15 @@
 % \bibliography{references}
 % 只使用实际 \cite{key}，不使用 \nocite{*}。
 
+\skillendbody
 \appendix
+\ctexset{section={name={附录,}}}
+\skillmarkpage{skill:appendix-start}
 \section{支撑文件与复现入口}
 \slot{真实文件列表、功能、输入输出、运行顺序、依赖版本，以及确实验证过的命令。}
 
-\section{AI 使用记录}
-\slot{按真实过程记录工具和版本、用途、关键交互、采纳修改及核验证据。是否需要本节及其位置以适用官方通知为准。}
+\section{结果明细与程序}
+\slot{按适用规则放入结果大表和源代码；若允许选录，写明选录范围以及完整材料所在文件。正文保留题面指定小表和主要结论，支撑目录与附录同步。}
 
 % 提交前清除所有填写说明与占位符，逐页检查排版。
 \end{document}

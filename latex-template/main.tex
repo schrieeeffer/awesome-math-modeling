@@ -3,13 +3,22 @@
 % 在本目录运行 latexmk；全文为可编辑草稿，不含真实研究结果。
 \documentclass[UTF8,a4paper,zihao=-4,fontset=fandol]{ctexart}
 \usepackage{modeling}
+\input{project-style}
 
-% 题目、题数、摘要及附录安排应按实际任务和适用竞赛要求调整。
+% 仅为无适用参考时的中文骨架。先按官方要求和用户案例调整文档类、
+% 语言、章节、摘要/summary及附加材料，不固定沿用示例顺序。
 \newcommand{\papertitle}{\slot{研究对象与核心问题}}
+% 未确认实际使用情况时保留占位；若当届规则无需此节，再关闭。
+\newif\ifincludeaistatement
+\includeaistatementtrue
+% 添加已核验且实际引用的文献后，改为 \usebibliographytrue。
+\newif\ifusebibliography
+\usebibliographyfalse
 
 \begin{document}
 \input{sections/abstract}
 \clearpage
+\skillmarkpage{skill:body-start}
 
 \input{sections/problem-analysis}
 \input{sections/assumptions-symbols}
@@ -18,10 +27,21 @@
 % 复制时将 q1 标签前缀及相应引用全部改为 q2，避免重复标签。
 \input{sections/evaluation-conclusion}
 
-% 默认启用 BibTeX。正文或附录中实际 \cite 的条目才会进入文献表。
-\bibliographystyle{gbt7714-numerical}
-\bibliography{references}
+\ifincludeaistatement
+  \input{sections/ai-statement}
+\fi
 
+\ifusebibliography
+  \bibliographystyle{gbt7714-numerical}
+  \bibliography{references}
+\else
+  \section*{参考文献}
+  \slot{填入已核验的学术文献，并启用文献表；无引用时按适用要求处理。}
+\fi
+
+\skillendbody
 \appendix
+\ctexset{section={name={附录,}}}
+\skillmarkpage{skill:appendix-start}
 \input{sections/appendix}
 \end{document}
